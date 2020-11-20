@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Website</title>
+        <style>
+            body {
+                background-color: cornflowerblue;
+            }
+
+            #count {
+                color: pink;
+                font-size: 200px;
+                font-weight: 700;
+            }
+
+            #message {
+                margin-top: 10px;
+            }
+        </style>
+    </head>
+        <h1>HELLO, JAVASCRIPT</h1>
+        <div id="count">0</div>
+        <button id="button">Click me to add</button>
+        <button id="minus">Click me to take away value</button>
+        <button id="clear">Click me to clear</button>
+        <div id="message"></div>
+        <br>
+        <hr>
+        <h3>What is your name?</h3>
+        <input id="input" /><button id="inputButton">Click</button>
+        <h4 id="displayName"></h4>
+        <h4 id="class"></h4>
+        <br>
+        <hr>
+        <h4>You have been here for <span id="time">0</span></h4>
+    </body>
+</html>
+
+<script>
+    var button = document.getElementById("button");
+    var count = document.getElementById("count");
+    var minus = document.getElementById("minus");
+    var message = document.getElementById("message");
+    var clear = document.getElementById("clear");
+    var inputBox = document.getElementById("input");
+    var inputButton = document.getElementById("inputButton");
+    var time = document.getElementById("time");
+
+    var counter = 0;
+    var name = "";
+    var timeCounter = 0
+    var seconds = 0;
+    var minutes = 0;
+    var hours = 0;
+
+    button.onclick = () => {
+        if (counter === 0) {
+            message.innerHTML = "";
+        }
+        counter++;
+        count.innerHTML = counter;
+    };
+
+    minus.onclick = () => {
+        if (counter > 0) {
+            counter--;
+            count.innerHTML = counter;
+        } else {
+            message.innerHTML = "CAN'T GO BELOW ZERO";
+        }
+    };
+
+    clear.onclick = () => {
+        message.innerHTML = "";
+        counter = 0;
+        count.innerHTML = counter;
+    };
+
+    inputButton.onclick = () => {
+        if (inputBox.value === "") {
+            displayName.innerHTML = "";
+            inputBox.value = "";
+        } else  {
+            displayName.innerHTML = "Your name is " + inputBox.value;
+            inputBox.value = "";
+        }
+    }
+
+    inputBox.onkeyup = (event) => {
+        event.preventDefault();
+        if (event.keyCode === 13) {
+            inputButton.click();
+        }
+    }
+
+    setInterval(() => {
+        timeCounter++;
+        var blah = secondsToHms(timeCounter);
+        time.innerHTML = blah;
+    }, 1000);
+
+    function secondsToHms(d) {
+        d = Number(d);
+        var h = Math.floor(d / 3600);
+        var m = Math.floor(d % 3600 / 60);
+        var s = Math.floor(d % 3600 % 60);
+
+        var hDisplay = h > 0 ? h + (h == 1 ? " hour, " : " hours, ") : "";
+        var mDisplay = m > 0 ? m + (m == 1 ? " minute, " : " minutes, ") : "";
+        var sDisplay = s > 0 ? s + (s == 1 ? " second" : " seconds") : "";
+        return hDisplay + mDisplay + sDisplay;
+    }
+</script>
